@@ -105,6 +105,7 @@ public class ZSY {
                 outputStream.write((str+"="+ URLEncoder.encode(data.get(str),"UTF-8")+"&").getBytes());
             }
             outputStream.flush();
+            outputStream.close();
             return this;
         }
 
@@ -112,6 +113,7 @@ public class ZSY {
             OutputStream outputStream = this.connection.getOutputStream();
             outputStream.write((key+"="+ URLEncoder.encode(value,"UTF-8")+"&").getBytes());
             outputStream.flush();
+            outputStream.close();
             return this;
         }
 
@@ -129,6 +131,7 @@ public class ZSY {
             PrintWriter outputStream=new PrintWriter(new OutputStreamWriter(this.connection.getOutputStream(),"UTF-8"));
             outputStream.write(data);
             outputStream.flush();
+            outputStream.close();
             return this;
         }
 
@@ -150,11 +153,6 @@ public class ZSY {
         }
 
         public ZSY build(){
-            try {
-                this.connection.getOutputStream().close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             return new ZSY(this);
         }
 
